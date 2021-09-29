@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "503497612888",
+    "project_id": "hris-4d585",
+    "storage_bucket": "hris-4d585.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503497612888:android:fc2f71c79af76d364f342d",
+        "android_client_info": {
+          "package_name": "id.bintoro.keluarga_bintoro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503497612888-hdfmri8qaj82nr3as519hlove4c09fek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWmlFhT9FP2UJtjtGok-K7FKTxEK2m5f8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503497612888-hdfmri8qaj82nr3as519hlove4c09fek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
