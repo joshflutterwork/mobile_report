@@ -19,7 +19,7 @@ class HomeProjectPage extends GetView<AuthController> {
               () => Column(children: [
                 GeneralContent(
                   'Report CRM',
-                  Icons.groups_rounded,
+                  Icons.group_rounded,
                   onTap: controller.showWidget,
                 ),
                 controller.isVisible.value
@@ -28,24 +28,24 @@ class HomeProjectPage extends GetView<AuthController> {
                         child: Column(children: [
                           GeneralContent(
                             'Laporan Survey',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () => Get.to(
                               () => ReportSurveyPage(Type.report),
                             ),
                           ),
                           GeneralContent(
                             'Laporan Tugas',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () {},
                           ),
                           GeneralContent(
                             'Laporan Rapat',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () {},
                           ),
                           GeneralContent(
                             'Laporan Panggilan',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () {},
                           ),
                         ]),

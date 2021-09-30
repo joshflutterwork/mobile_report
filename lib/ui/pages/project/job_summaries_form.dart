@@ -22,6 +22,27 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
   List<File> _image = [];
   final picker = ImagePicker();
 
+  @override
+  void initState() {
+    super.initState();
+    getinitialImage();
+  }
+
+  getinitialImage() async {
+    imageBase64.add(ImageX(
+        image: await networkImageToBase64(widget.job!.image?.first.image!),
+        name: widget.job!.image?.first.name ?? ''));
+
+    print(imageBase64);
+    setState(() {});
+  }
+
+  Future<String> networkImageToBase64(String? imageUrl) async {
+    http.Response response = await http.get(Uri.parse(imageUrl!));
+    final bytes = response.bodyBytes;
+    return base64Encode(bytes);
+  }
+
   Future getImage(ImageSource source) async {
     setState(() {
       onUpload = true;
@@ -88,10 +109,13 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
                             alignment: Alignment.center,
                             fit: StackFit.expand,
                             children: [
-                              Image.file(
-                                _image[index],
-                                fit: BoxFit.cover,
-                              ),
+                              _image.length > 0
+                                  ? Image.file(
+                                      _image[index],
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      widget.job!.image!.first.image!),
                               IconButton(
                                 onPressed: () => removeImage(index),
                                 icon: Icon(
@@ -188,7 +212,7 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
                   borderRadius: BorderRadius.circular(35), color: Colors.white),
               child: ListTile(
                 title: Text(
-                  (unitPrice == null) ? 'Pilih' : unitPrice!.text ?? '',
+                  widget.job?.ahs ?? '-',
                   style: TextStyle(
                       color: (unitPrice == null) ? Colors.grey : Colors.black),
                 ),
@@ -220,11 +244,11 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
                   filled: true,
                   contentPadding: EdgeInsets.fromLTRB(30, 16, 0, 16),
                   hintStyle: TextStyle(color: Colors.grey),
-                  hintText: unitPrice == null || unitPrice!.totalPrice == null
+                  hintText: widget.job?.harga == ""
                       ? 'Harga Jual'
                       : NumberFormat.currency(
                               locale: 'id', symbol: 'Rp ', decimalDigits: 0)
-                          .format(unitPrice!.totalPrice)),
+                          .format(int.parse(widget.job!.harga))),
             ),
           ],
         ),

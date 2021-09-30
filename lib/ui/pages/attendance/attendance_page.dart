@@ -16,7 +16,7 @@ class AttendancePage extends GetView<AuthController> {
           ),
           GeneralContent(
             'Cuti / Izin',
-            Icons.hail_rounded,
+            Icons.hail,
             onTap: () => Get.to(
               () => LeaveEmployeePage(),
             ),
@@ -26,7 +26,7 @@ class AttendancePage extends GetView<AuthController> {
               children: [
                 GeneralContent(
                   'Cuti / Izin Admin',
-                  Icons.hail_rounded,
+                  Icons.hail,
                   onTap: () => Get.to(
                     () => LeaveAdminPage(),
                   ),

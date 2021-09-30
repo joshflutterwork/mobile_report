@@ -18,7 +18,7 @@ class HomeAktivitasPage extends GetView<AuthController> {
               userId != 0)
             Obx(
               () => Column(children: [
-                GeneralContent('Aktivitas CRM', Icons.groups_rounded,
+                GeneralContent('Aktivitas CRM', Icons.group_rounded,
                     onTap: controller.aktivCRM),
                 controller.aktivitasCRM.value
                     ? Padding(
@@ -26,24 +26,24 @@ class HomeAktivitasPage extends GetView<AuthController> {
                         child: Column(children: [
                           GeneralContent(
                             'Jadwal Survey',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () => Get.to(
                               () => ReportSurveyPage(Type.aktivitas),
                             ),
                           ),
                           GeneralContent(
                             'Tugas',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () {},
                           ),
                           GeneralContent(
                             'Rapat',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () {},
                           ),
                           GeneralContent(
                             'Panggilan',
-                            Icons.groups_rounded,
+                            Icons.group_rounded,
                             onTap: () {},
                           ),
                         ]),

@@ -45,16 +45,37 @@ class _ReportSurveyFormState extends State<ReportSurveyForm> {
     super.initState();
     if (widget.isEdit == true) {
       title = 'Edit';
-      budgetCT = TextEditingController(text: widget.data!.budget);
-      existingBuildingArea =
-          TextEditingController(text: widget.data!.existingBuildingArea);
-      existingLandArea =
-          TextEditingController(text: widget.data!.existingLandArea);
-      buildingArea = TextEditingController(text: widget.data!.buildingArea);
-      landArea = TextEditingController(text: widget.data!.landArea);
-      note = TextEditingController(text: widget.data!.note);
+      budgetCT.text = widget.data!.budget!;
+      existingBuildingArea.text = widget.data!.existingBuildingArea ?? '-';
+      existingLandArea.text = widget.data!.existingLandArea ?? '-';
+      buildingArea.text = widget.data!.buildingArea ?? '-';
+      landArea.text = widget.data!.landArea ?? '-';
+      note.text = widget.data!.note ?? '-';
       _selectedDay = widget.data!.requestDate;
+
+      vPekerjaan = widget.data!.uPrice!.map((e) {
+        var newAHS = AHS(title: e.name!, volume: e.volume!);
+        return AHSform(
+            user: newAHS,
+            onDelete: () {
+              onDelete(newAHS);
+            });
+      }).toList();
     }
+
+    vJob = widget.data!.jobs!.map((e) {
+      var newJobs = Jobs(
+          ahs: e.price!.toString(),
+          kasus: e.cases!,
+          harga: e.totalPrice!.toString(),
+          saran: e.suggestion!,
+          image: e.imageJob!);
+      return JobSummariesForm(
+          job: newJobs,
+          isDelete: () {
+            onDeleteJob(newJobs);
+          });
+    }).toList();
   }
 
   @override
@@ -151,10 +172,15 @@ class _ReportSurveyFormState extends State<ReportSurveyForm> {
                     color: Colors.white),
                 child: ListTile(
                   title: listWorkPicker == null
-                      ? Text(
-                          'Pilih Jenis Pekerjaan',
-                          style: TextStyle(color: Colors.grey),
-                        )
+                      ? widget.data!.accessRoad!.length > 0
+                          ? Row(
+                              children: widget.data!.accessRoad!
+                                  .map((e) => Text('${e.name}, '))
+                                  .toList())
+                          : Text(
+                              'Pilih Jenis Pekerjaan',
+                              style: TextStyle(color: Colors.grey),
+                            )
                       : Text(
                           '${listWorkPicker!.map((e) => e.text).toString()}'),
                   onTap: () {
@@ -542,7 +568,7 @@ class _ReportSurveyFormState extends State<ReportSurveyForm> {
                 () => ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     primary: mainColor,
-                    fixedSize: Size(double.infinity, 45),
+                    minimumSize: Size(double.infinity, 45),
                   ),
                   onPressed: (widget.isEdit != true)
                       ? () async {

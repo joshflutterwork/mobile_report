@@ -41,13 +41,13 @@ class _AHSformState extends State<AHSform> {
                       color: Colors.white),
                   child: ListTile(
                     title: Text(
-                        (unitPrice == null) ? 'Pilih' : unitPrice!.text ?? '',
+                        widget.user!.title == "" ? "Pilih" : widget.user!.title,
                         style: TextStyle(color: Colors.grey)),
                     onTap: () {
                       Get.to(() => UnitPicker())!.then((value) {
                         if (value != null && value is UnitPrice) {
                           unitPrice = value;
-                          widget.user!.title = unitPrice!.id.toString();
+                          widget.user!.title = unitPrice!.text.toString();
                           setState(() {});
                         }
                       });

@@ -128,7 +128,9 @@ class JobsX {
   String? cases;
   String? suggestion;
   int? totalPrice;
+  String? price;
   List<ImageSourceX>? image;
+  List<ImageX>? imageJob;
 
   JobsX(
       {this.id,
@@ -136,7 +138,9 @@ class JobsX {
       this.cases,
       this.suggestion,
       this.totalPrice,
-      this.image});
+      this.price,
+      this.image,
+      this.imageJob});
   factory JobsX.fromJson(Map<String, dynamic> map) {
     return JobsX(
       id: map['id'],
@@ -144,8 +148,11 @@ class JobsX {
       cases: map['pivot']['case'],
       suggestion: map['pivot']['suggestion'],
       totalPrice: map['total_prices'],
+      price: map['prices'].toString(),
       image: List<ImageSourceX>.from(
           map['pivot']["image_sources"].map((x) => ImageSourceX.fromJson(x))),
+      imageJob: List<ImageX>.from(
+          map['pivot']["image_sources"].map((x) => ImageX.fromJob(x))),
     );
   }
 }
@@ -162,11 +169,15 @@ class Uprice {
   int? id;
   String? name;
   int? totalPrice;
+  String? volume;
 
-  Uprice({this.id, this.name, this.totalPrice});
+  Uprice({this.id, this.name, this.totalPrice, this.volume});
   factory Uprice.fromJson(Map<String, dynamic> map) {
     return Uprice(
-        id: map['id'], name: map['name'], totalPrice: map['total_prices']);
+        id: map['id'],
+        name: map['name'],
+        totalPrice: map['total_prices'],
+        volume: map['pivot']['volume']);
   }
 }
 
@@ -354,6 +365,10 @@ class ImageX {
   ImageX({this.name, this.image});
   factory ImageX.fromJson(Map<String, dynamic> map) {
     return ImageX(name: map['name'], image: map['image']);
+  }
+
+  factory ImageX.fromJob(Map<String, dynamic> map) {
+    return ImageX(name: map['filename'], image: map['src']);
   }
 }
 
