@@ -6,8 +6,18 @@ class JobSummariesForm extends StatefulWidget {
   final Jobs? job;
   final state = _JobSummariesFormState();
   final IsDelete? isDelete;
+  final TextEditingController? kasus;
+  final TextEditingController? saran;
+  final TextEditingController? hargaJual;
 
-  JobSummariesForm({Key? key, this.job, this.isDelete}) : super(key: key);
+  JobSummariesForm(
+      {Key? key,
+      this.job,
+      this.isDelete,
+      this.kasus,
+      this.saran,
+      this.hargaJual})
+      : super(key: key);
   @override
   _JobSummariesFormState createState() => state;
 
@@ -35,6 +45,13 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
 
     print(imageBase64);
     setState(() {});
+  }
+
+  getTextController() {
+    widget.hargaJual!.text = widget.job!.harga;
+    widget.kasus!.text = widget.job!.kasus;
+
+    widget.saran!.text = widget.job!.saran;
   }
 
   Future<String> networkImageToBase64(String? imageUrl) async {
@@ -86,10 +103,7 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               labelText('Gambar'),
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: widget.isDelete,
-              ),
+              IconButton(icon: Icon(Icons.delete), onPressed: widget.isDelete),
             ]),
             ConstrainedBox(
               constraints: BoxConstraints(
@@ -168,7 +182,7 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
             TextFormField(
               minLines: 1,
               maxLines: 10,
-              initialValue: widget.job!.kasus,
+              controller: widget.kasus,
               onSaved: (String? val) => widget.job!.kasus = val!,
               style: TextStyle(
                 color: Color(0xFF43A8FC),
@@ -189,7 +203,7 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
             TextFormField(
               minLines: 1,
               maxLines: 10,
-              initialValue: widget.job!.saran,
+              controller: widget.saran,
               onSaved: (String? val) => widget.job!.saran = val!,
               style: TextStyle(
                 color: Color(0xFF43A8FC),
@@ -230,7 +244,7 @@ class _JobSummariesFormState extends State<JobSummariesForm> {
             ),
             labelText('Harga Jual'),
             TextFormField(
-              //controller: budgetCT,
+              controller: widget.hargaJual,
               readOnly: true,
               style: TextStyle(
                 color: Color(0xFF43A8FC),

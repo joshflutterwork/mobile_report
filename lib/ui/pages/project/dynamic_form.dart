@@ -3,11 +3,15 @@ part of '../pages.dart';
 typedef OnDelete();
 
 class AHSform extends StatefulWidget {
+  final String id;
   final AHS? user;
   final state = _AHSformState();
   final OnDelete? onDelete;
+  final TextEditingController? textEditingController;
 
-  AHSform({Key? key, this.user, this.onDelete}) : super(key: key);
+  AHSform(this.id,
+      {Key? key, this.user, this.onDelete, this.textEditingController})
+      : super(key: key);
   @override
   _AHSformState createState() => state;
 
@@ -17,6 +21,18 @@ class AHSform extends StatefulWidget {
 class _AHSformState extends State<AHSform> {
   final form = GlobalKey<FormState>();
   UnitPrice? unitPrice;
+  // TextEditingController _volume = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getTextVolume();
+  }
+
+  getTextVolume() {
+    widget.textEditingController!.text = widget.user!.volume;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +73,8 @@ class _AHSformState extends State<AHSform> {
               ),
               Expanded(
                 child: TextFormField(
+                  controller: widget.textEditingController,
                   keyboardType: TextInputType.number,
-                  initialValue: widget.user!.volume,
                   onSaved: (String? val) => widget.user!.volume = val!,
                   style: TextStyle(
                     color: Color(0xFF43A8FC),
@@ -78,7 +94,10 @@ class _AHSformState extends State<AHSform> {
               ),
               IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: widget.onDelete,
+                onPressed: () {
+                  widget.onDelete!();
+                  // _volume.text = widget.user!.volume;
+                },
               )
             ]),
           ],
@@ -96,8 +115,13 @@ class _AHSformState extends State<AHSform> {
 }
 
 class AHS {
+  String id;
   String title;
   String volume;
 
-  AHS({this.title = '', this.volume = ''});
+  AHS(
+    this.id, {
+    this.title = '',
+    this.volume = '',
+  });
 }
